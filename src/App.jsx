@@ -8,7 +8,6 @@ import Login from './pages/Login';
 // Client pages
 import ClientHome from './pages/client/ClientHome';
 import ClientProducts from './pages/client/ClientProducts';
-import ClientMaterials from './pages/client/ClientMaterials';
 import ClientQuotation from './pages/client/ClientQuotation';
 import ClientQueries from './pages/client/ClientQueries';
 
@@ -54,7 +53,6 @@ export default function App() {
             }>
               <Route index element={<ClientHome />} />
               <Route path="products" element={<ClientProducts />} />
-              <Route path="materials" element={<ClientMaterials />} />
               <Route path="quotation" element={<ClientQuotation />} />
               <Route path="queries" element={<ClientQueries />} />
             </Route>

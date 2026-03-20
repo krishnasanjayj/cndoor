@@ -1,12 +1,11 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Building2, Home, Grid3x3, Layers, FileText, MessageSquare, LogOut, Menu, X } from 'lucide-react';
+import { Building2, Home, Grid3x3, FileText, MessageSquare, LogOut, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
   { to: '/client', label: 'Home', icon: Home, end: true },
   { to: '/client/products', label: 'Products', icon: Grid3x3 },
-  { to: '/client/materials', label: 'Materials', icon: Layers },
   { to: '/client/quotation', label: 'Get Quotation', icon: FileText },
   { to: '/client/queries', label: 'My Queries', icon: MessageSquare },
 ];

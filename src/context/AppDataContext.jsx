@@ -107,41 +107,6 @@ const INITIAL_PRODUCTS = [
   },
 ];
 
-const INITIAL_MATERIALS = [
-  {
-    id: 'm1',
-    name: 'UPVC Profile',
-    icon: '🪟',
-    description: 'Unplasticized Polyvinyl Chloride — our primary frame material. Chemically inert, rot-proof, and impact-resistant.',
-    specs: ['5-chamber profile', '60mm–80mm depth', 'Lead-free formulation', 'RAL color coating option'],
-    benefit: 'Lifetime performance without painting or maintenance',
-  },
-  {
-    id: 'm2',
-    name: 'Double Glazing Glass',
-    icon: '🔲',
-    description: 'Two panes of toughened glass separated by an Argon-filled spacer — providing thermal and acoustic insulation.',
-    specs: ['4mm–6mm glass panes', '16mm argon spacer', 'U-value 1.1 W/m²K', 'Safety toughened option'],
-    benefit: 'Up to 50% energy saving vs single glazing',
-  },
-  {
-    id: 'm4',
-    name: 'EPDM Gaskets & Seals',
-    icon: '🔄',
-    description: 'Ethylene propylene diene monomer rubber seals provide airtight, watertight barrier against the elements.',
-    specs: ['Triple point sealing', 'UV resistant compound', '-40°C to +120°C range', 'Flexible memory seal'],
-    benefit: 'Zero water ingress, superior draught protection',
-  },
-  {
-    id: 'm5',
-    name: 'Multi-Point Locking Hardware',
-    icon: '🔐',
-    description: 'European-grade stainless steel locking systems with multiple locking points across the sash perimeter.',
-    specs: ['Stainless steel grade 316', '3–7 locking points', 'Anti-pick cylinders', 'PAS 24 tested'],
-    benefit: 'Certified security against forced entry',
-  },
-];
-
 const SAMPLE_QUERIES = [
   {
     id: 'q1',
@@ -185,7 +150,6 @@ const AppDataContext = createContext(null);
 
 export function AppDataProvider({ children }) {
   const [products] = useState(INITIAL_PRODUCTS);
-  const [materials] = useState(INITIAL_MATERIALS);
   const [queries, setQueries] = useState(() => {
     const saved = localStorage.getItem('upvc_queries');
     return saved ? JSON.parse(saved) : SAMPLE_QUERIES;
@@ -220,7 +184,7 @@ export function AppDataProvider({ children }) {
   const getClientQueries = (clientId) => queries.filter(q => q.clientId === clientId);
 
   return (
-    <AppDataContext.Provider value={{ products, materials, queries, submitQuery, replyToQuery, getClientQueries }}>
+    <AppDataContext.Provider value={{ products, queries, submitQuery, replyToQuery, getClientQueries }}>
       {children}
     </AppDataContext.Provider>
   );
