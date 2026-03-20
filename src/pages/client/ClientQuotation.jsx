@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useAppData } from '../../context/AppDataContext';
 import { useAuth } from '../../context/AuthContext';
-import { Send, CheckCircle } from 'lucide-react';
+import { Send, CheckCircle, Plus, Trash2 } from 'lucide-react';
 
 export default function ClientQuotation() {
   const { products, submitQuery } = useAppData();
@@ -10,11 +10,10 @@ export default function ClientQuotation() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    productType: '',
-    width: '',
-    height: '',
-    quantity: '1',
+  const [items, setItems] = useState([
+    { productType: '', width: '', height: '', quantity: '1' }
+  ]);
+  const [details, setDetails] = useState({
     address: '',
     message: '',
   });
@@ -24,23 +23,47 @@ export default function ClientQuotation() {
     const prodId = searchParams.get('product');
     if (prodId) {
       const p = products.find(x => x.id === prodId);
-      if (p) setFormData(prev => ({ ...prev, productType: p.name }));
+      if (p) {
+        setItems([{ productType: p.name, width: '', height: '', quantity: '1' }]);
+      }
     }
   }, [searchParams, products]);
 
+  const handleItemChange = (index, field, value) => {
+    const updatedItems = [...items];
+    updatedItems[index][field] = value;
+    setItems(updatedItems);
+  };
+
+  const handleAddItem = () => {
+    setItems([...items, { productType: '', width: '', height: '', quantity: '1' }]);
+  };
+
+  const handleRemoveItem = (index) => {
+    if (items.length > 1) {
+      setItems(items.filter((_, i) => i !== index));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    const validItems = items.filter(item => item.productType);
+    if (validItems.length === 0) return;
+
     submitQuery({
       clientId: user.id,
       clientName: user.name,
       clientEmail: user.email,
       clientPhone: user.phone || 'N/A',
-      productType: formData.productType,
-      width: Number(formData.width) || 0,
-      height: Number(formData.height) || 0,
-      quantity: Number(formData.quantity) || 1,
-      address: formData.address,
-      message: formData.message,
+      items: validItems.map(item => ({
+        productType: item.productType,
+        quantity: Number(item.quantity) || 1,
+        width: Number(item.width) || 0,
+        height: Number(item.height) || 0,
+      })),
+      address: details.address,
+      message: details.message,
     });
     setSubmitted(true);
   };
@@ -73,57 +96,80 @@ export default function ClientQuotation() {
       <div className="bg-[#121a2e]/70 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] max-w-[800px] p-8 w-full">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Product Type *</label>
-              <select 
-                className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none [&>option]:bg-bgCard [&>option]:text-textPrimary" 
-                required
-                value={formData.productType}
-                onChange={e => setFormData({...formData, productType: e.target.value})}
-              >
-                <option value="">Select a product...</option>
-                {products.map(p => (
-                  <option key={p.id} value={p.name}>{p.name} ({p.category})</option>
-                ))}
-                <option value="Other">Other / Custom</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Quantity *</label>
-              <input 
-                type="number" min="1" className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted" required
-                value={formData.quantity}
-                onChange={e => setFormData({...formData, quantity: e.target.value})}
-              />
-            </div>
-          </div>
+          <div className="flex flex-col gap-6">
+            {items.map((item, idx) => (
+              <div key={idx} className="p-5 border border-white/10 rounded-lg relative bg-white/[0.02] shadow-sm">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-gold font-heading font-bold text-[0.95rem] tracking-wider uppercase">Product {idx + 1}</h3>
+                  {items.length > 1 && (
+                    <button type="button" onClick={() => handleRemoveItem(idx)} className="text-textMuted hover:text-error transition-colors p-1" title="Remove Product">
+                      <Trash2 size={18} />
+                    </button>
+                  )}
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Product Type *</label>
+                    <select 
+                      className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none [&>option]:bg-bgCard [&>option]:text-textPrimary" 
+                      required
+                      value={item.productType}
+                      onChange={e => handleItemChange(idx, 'productType', e.target.value)}
+                    >
+                      <option value="">Select a product...</option>
+                      {products.map(p => (
+                        <option key={p.id} value={p.name}>{p.name} ({p.category})</option>
+                      ))}
+                      <option value="Other">Other / Custom</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Quantity *</label>
+                    <input 
+                      type="number" min="1" className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted" required
+                      value={item.quantity}
+                      onChange={e => handleItemChange(idx, 'quantity', e.target.value)}
+                    />
+                  </div>
+                </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Approx Width (feet)</label>
-              <input 
-                type="number" step="0.5" className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted" placeholder="e.g. 4"
-                value={formData.width}
-                onChange={e => setFormData({...formData, width: e.target.value})}
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Approx Height (feet)</label>
-              <input 
-                type="number" step="0.5" className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted" placeholder="e.g. 5"
-                value={formData.height}
-                onChange={e => setFormData({...formData, height: e.target.value})}
-              />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Approx Width (feet)</label>
+                    <input 
+                      type="number" step="0.5" className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted" placeholder="e.g. 4"
+                      value={item.width}
+                      onChange={e => handleItemChange(idx, 'width', e.target.value)}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Approx Height (feet)</label>
+                    <input 
+                      type="number" step="0.5" className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted" placeholder="e.g. 5"
+                      value={item.height}
+                      onChange={e => handleItemChange(idx, 'height', e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            <div className="flex justify-center sm:justify-start">
+              <button type="button" onClick={handleAddItem} className="inline-flex items-center gap-2 px-4 py-2 border border-dashed border-gold/50 text-gold rounded-md hover:bg-gold/10 transition-colors text-[0.9rem] font-medium w-full sm:w-auto">
+                <Plus size={16} /> Add Another Product
+              </button>
             </div>
           </div>
+          
+          <div className="h-px bg-white/10 w-full my-4"></div>
 
           <div className="flex flex-col gap-1.5">
             <label className="text-[0.85rem] font-medium text-textSecondary tracking-[0.02em]">Installation Address *</label>
             <input 
               type="text" className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted" required placeholder="Full address for site survey"
-              value={formData.address}
-              onChange={e => setFormData({...formData, address: e.target.value})}
+              value={details.address}
+              onChange={e => setDetails({...details, address: e.target.value})}
             />
           </div>
 
@@ -132,8 +178,8 @@ export default function ClientQuotation() {
             <textarea 
               className="bg-white/5 border-[1.5px] border-borderBase rounded-md text-textPrimary py-3 px-4 text-[0.9rem] transition-colors w-full focus:border-gold focus:bg-gold/5 focus:ring-[3px] focus:ring-gold/10 outline-none placeholder:text-textMuted min-h-[100px] resize-y" 
               placeholder="Any specific glass type, color preference (white/wood finish), or special requirements?"
-              value={formData.message}
-              onChange={e => setFormData({...formData, message: e.target.value})}
+              value={details.message}
+              onChange={e => setDetails({...details, message: e.target.value})}
             />
           </div>
 

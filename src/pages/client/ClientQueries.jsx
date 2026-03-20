@@ -27,7 +27,10 @@ export default function ClientQueries() {
             <div key={q.id} className="bg-[#121a2e]/70 backdrop-blur-md border border-white/10 rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] flex flex-col p-6 transition-all hover:border-gold/30 hover:shadow-[0_8px_40px_rgba(212,175,55,0.2)]">
               <div className="flex flex-wrap gap-4 items-center justify-between border-b border-borderBase pb-4 mb-4">
                 <div>
-                  <h3 className="font-heading font-bold mb-1 text-[1.2rem] text-textPrimary">{q.productType}</h3>
+                  <h3 className="font-heading font-bold mb-1 text-[1.2rem] text-textPrimary">
+                    {q.items ? q.items[0].productType : q.productType}
+                    {q.items && q.items.length > 1 && <span className="ml-2 text-gold text-[0.9rem] font-medium">(+{q.items.length - 1} more)</span>}
+                  </h3>
                   <div className="text-textMuted text-[0.85rem]">
                     Submitted: {new Date(q.submittedAt).toLocaleDateString()} at {new Date(q.submittedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                   </div>
@@ -43,12 +46,12 @@ export default function ClientQueries() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 border-b border-borderBase pb-4 mb-6">
                 <div>
-                  <div className="text-[0.8rem] font-semibold tracking-widest uppercase text-gold">Dimensions</div>
-                  <div className="text-textPrimary mt-1 font-semibold">{q.width}ft × {q.height}ft</div>
+                  <div className="text-[0.8rem] font-semibold tracking-widest uppercase text-gold">Total Items</div>
+                  <div className="text-textPrimary mt-1 font-semibold">{q.items ? q.items.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0) : q.quantity} units</div>
                 </div>
                 <div>
-                  <div className="text-[0.8rem] font-semibold tracking-widest uppercase text-gold">Quantity</div>
-                  <div className="text-textPrimary mt-1 font-semibold">{q.quantity} units</div>
+                  <div className="text-[0.8rem] font-semibold tracking-widest uppercase text-gold">Product Types</div>
+                  <div className="text-textPrimary mt-1 font-semibold">{q.items ? q.items.length : 1} types</div>
                 </div>
                 <div>
                   <div className="text-[0.8rem] font-semibold tracking-widest uppercase text-gold">Address</div>

@@ -29,7 +29,12 @@ export default function OwnerQueryDetail() {
     
     // Auto-generate a beautifully pre-filled email to the customer
     const subject = encodeURIComponent(`PrimeVision UPVC - Response to your Query #${query.id.toUpperCase()}`);
-    let bodyText = `Hello ${query.clientName},\n\nThank you for reaching out to PrimeVision UPVC! We have reviewed your request for ${query.productType} (${query.quantity} units). \n\nHere is our response:\n\n${replyText}\n`;
+    
+    const itemsList = query.items 
+      ? query.items.map((item, idx) => `${idx + 1}. ${item.quantity}x ${item.productType} (${item.width}x${item.height}ft)`).join('\n')
+      : `- ${query.quantity}x ${query.productType} (${query.width}x${query.height}ft)`;
+      
+    let bodyText = `Hello ${query.clientName},\n\nThank you for reaching out to PrimeVision UPVC! We have reviewed your request for the following products:\n\n${itemsList}\n\nHere is our response:\n\n${replyText}\n`;
     
     if (priceEstimate) {
       bodyText += `\nEstimated Price: ₹${priceEstimate}\n`;
@@ -109,20 +114,21 @@ export default function OwnerQueryDetail() {
             <Package size={16} /> Requirements
           </h3>
           <div className="flex flex-col gap-4">
-            <div>
-              <div className="text-textMuted text-[0.8rem] mb-0.5">Product Type</div>
-              <div className="text-textPrimary font-semibold">{query.productType}</div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <div className="text-textMuted text-[0.8rem] mb-0.5">Quantity</div>
-                <div className="text-textPrimary">{query.quantity} units</div>
+            {(query.items || [{ productType: query.productType, quantity: query.quantity, width: query.width, height: query.height }]).map((item, idx) => (
+              <div key={idx} className="bg-white/5 rounded-lg p-4 border border-white/10">
+                <div className="font-semibold text-textPrimary mb-3">{item.productType}</div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="text-textMuted text-[0.8rem] mb-0.5">Quantity</div>
+                    <div className="text-textPrimary text-[0.9rem]">{item.quantity} units</div>
+                  </div>
+                  <div>
+                    <div className="text-textMuted text-[0.8rem] mb-0.5">Dimensions</div>
+                    <div className="text-textPrimary text-[0.9rem]">{item.width}ft × {item.height}ft</div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className="text-textMuted text-[0.8rem] mb-0.5">Dimensions</div>
-                <div className="text-textPrimary">{query.width}ft × {query.height}ft</div>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="mt-6 pt-6 border-t border-borderBase">

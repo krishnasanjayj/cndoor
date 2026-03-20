@@ -67,8 +67,13 @@ export default function OwnerQueries() {
                     <div className="text-textMuted text-[0.8rem]">{q.clientEmail}</div>
                   </td>
                   <td className="px-6 py-4 align-middle">
-                    <div className="font-medium text-[0.9rem]">{q.productType}</div>
-                    <div className="text-textMuted text-[0.8rem]">Qty: {q.quantity} | {q.width}x{q.height}ft</div>
+                    <div className="font-medium text-[0.9rem]">
+                      {q.items ? q.items[0].productType : q.productType}
+                      {q.items && q.items.length > 1 && <span className="ml-1 text-gold text-[0.8rem]">(+{q.items.length - 1} more)</span>}
+                    </div>
+                    <div className="text-textMuted text-[0.8rem]">
+                      Qty: {q.items ? q.items[0].quantity : q.quantity} | {q.items ? q.items[0].width : q.width}x{q.items ? q.items[0].height : q.height}ft
+                    </div>
                   </td>
                   <td className="px-6 py-4 align-middle max-w-[150px]">
                     <div className="truncate text-[0.9rem]" title={q.address}>
