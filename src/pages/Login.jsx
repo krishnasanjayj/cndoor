@@ -81,7 +81,7 @@ export default function Login() {
             <div className="w-12 h-12 bg-gradient-to-br from-gold to-goldDark rounded-md flex items-center justify-center text-[#0a0e1a] shrink-0">
               <Building2 size={28} />
             </div>
-            <span className="font-heading text-[1.15rem] font-bold text-textPrimary tracking-[0.02em]">PrimeVision UPVC</span>
+            <span className="font-heading text-[1.15rem] font-bold text-textPrimary tracking-[0.02em]">CN Doors</span>
           </div>
           <h1 className="font-heading text-[1.8rem] md:text-[2.4rem] font-extrabold leading-[1.15] text-textPrimary mb-5">
             Premium Doors<br />& Windows<br />

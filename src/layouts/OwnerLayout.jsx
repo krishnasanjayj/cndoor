@@ -26,7 +26,7 @@ export default function OwnerLayout() {
             <Building2 size={20} />
           </div>
           <div>
-            <div className="font-heading text-[0.95rem] font-bold text-textPrimary">PrimeVision</div>
+            <div className="font-heading text-[0.95rem] font-bold text-textPrimary">CN Doors</div>
             <div className="text-[0.7rem] text-gold font-medium tracking-[0.05em]">Business Portal</div>
           </div>
         </div>

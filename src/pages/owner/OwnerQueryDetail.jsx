@@ -28,19 +28,19 @@ export default function OwnerQueryDetail() {
     replyToQuery(query.id, replyText, priceEstimate);
     
     // Auto-generate a beautifully pre-filled email to the customer
-    const subject = encodeURIComponent(`PrimeVision UPVC - Response to your Query #${query.id.toUpperCase()}`);
+    const subject = encodeURIComponent(`CN Doors - Response to your Query #${query.id.toUpperCase()}`);
     
     const itemsList = query.items 
       ? query.items.map((item, idx) => `${idx + 1}. ${item.quantity}x ${item.productType} (${item.width}x${item.height}ft)`).join('\n')
       : `- ${query.quantity}x ${query.productType} (${query.width}x${query.height}ft)`;
       
-    let bodyText = `Hello ${query.clientName},\n\nThank you for reaching out to PrimeVision UPVC! We have reviewed your request for the following products:\n\n${itemsList}\n\nHere is our response:\n\n${replyText}\n`;
+    let bodyText = `Hello ${query.clientName},\n\nThank you for reaching out to CN Doors! We have reviewed your request for the following products:\n\n${itemsList}\n\nHere is our response:\n\n${replyText}\n`;
     
     if (priceEstimate) {
       bodyText += `\nEstimated Price: ₹${priceEstimate}\n`;
     }
     
-    bodyText += `\nBest Regards,\nThe PrimeVision UPVC Team\nPhone: +91 94454-77574`;
+    bodyText += `\nBest Regards,\nThe CN Doors Team\nPhone: +91 94454-77574`;
     
     const mailtoUrl = `mailto:${query.clientEmail}?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
     

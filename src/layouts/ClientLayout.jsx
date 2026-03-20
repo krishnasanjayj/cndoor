@@ -29,7 +29,7 @@ export default function ClientLayout() {
             <div className="w-9 h-9 bg-gradient-to-br from-gold to-goldDark rounded-sm flex items-center justify-center text-[#0a0e1a] font-bold">
               <Building2 size={20} />
             </div>
-            <span className="font-heading text-base font-bold text-textPrimary tracking-[0.02em]">PrimeVision UPVC</span>
+            <span className="font-heading text-base font-bold text-textPrimary tracking-[0.02em]">CN Doors</span>
           </div>
 
           {/* Desktop Nav */}

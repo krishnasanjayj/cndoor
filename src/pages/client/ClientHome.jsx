@@ -11,7 +11,7 @@ export default function ClientHome() {
             Premium Quality UPVC
           </div>
           <h1 className="text-[2.4rem] md:text-[3.5rem] font-extrabold leading-[1.1] mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)] font-heading text-textPrimary">
-            Transform Your Home with <span className="text-gold">PrimeVision</span>
+            Transform Your Home with <span className="text-gold">CN Doors</span>
           </h1>
           <p className="text-[1.15rem] text-textSecondary mb-8 max-w-[600px] mx-auto">
             Discover the perfect blend of elegance, security, and energy efficiency with our world-class UPVC doors and windows.
@@ -30,7 +30,7 @@ export default function ClientHome() {
       {/* Features Section */}
       <section className="md:-mt-10 mt-10 relative z-10 max-w-[1200px] mx-auto px-6">
         <div className="text-center mb-10">
-          <h2 className="font-heading text-[2.2rem] font-bold text-textPrimary mt-2 leading-[1.2]">Why Choose PrimeVision?</h2>
+          <h2 className="font-heading text-[2.2rem] font-bold text-textPrimary mt-2 leading-[1.2]">Why Choose CN Doors?</h2>
           <div className="w-[60px] h-[3px] bg-gradient-to-r from-gold to-transparent rounded-full my-4 mx-auto" />
         </div>
 
