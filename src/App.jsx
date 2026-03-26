@@ -21,6 +21,8 @@ import OwnerProducts from './pages/owner/OwnerProducts';
 import ClientLayout from './layouts/ClientLayout';
 import OwnerLayout from './layouts/OwnerLayout';
 
+//HIi
+
 function ProtectedRoute({ children, requiredRole }) {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
