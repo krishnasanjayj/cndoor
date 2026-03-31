@@ -4,7 +4,8 @@ import { AppDataProvider } from './context/AppDataContext';
 
 // Pages
 import Login from './pages/Login';
-
+const lm = "abc"
+let lm = "abc"
 // Client pages
 import ClientHome from './pages/client/ClientHome';
 import ClientProducts from './pages/client/ClientProducts';
