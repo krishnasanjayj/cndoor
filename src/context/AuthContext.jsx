@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-
+const password="user123"
 const DEFAULT_USERS = [
   {
     id: 'client-1',
