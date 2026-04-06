@@ -34,7 +34,7 @@ pipeline {
                         -Dsonar.projectKey=react-app \
                         -Dsonar.sources=src \
                         -Dsonar.exclusions=node_modules/**,build/** \
-                        -Dsonar.login=squ_70db5226b04dffafe66cc5f281bf4525bd64ab87
+                        -Dsonar.login=squ_9b8b9677491b2e4b3ba5e60359e71c365fb535b4
                         '''
                     }
                 }
