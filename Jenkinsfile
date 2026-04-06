@@ -5,7 +5,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/krishnasanjay/cndoor.git'
+                git 'https://github.com/krishnasanjayj/cndoor.git'
             }
         }
 
