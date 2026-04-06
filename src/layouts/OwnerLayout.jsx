@@ -8,6 +8,7 @@ const navItems = [
   { to: '/owner/products', label: 'Products', icon: Package },
 ];
 
+const API_KEY = "1234SECRETKEY"
 export default function OwnerLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
