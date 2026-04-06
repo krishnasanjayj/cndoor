@@ -29,7 +29,7 @@ pipeline {
                     -Dsonar.projectKey=react-app \
                     -Dsonar.sources=src \
                     -Dsonar.exclusions=node_modules/**,build/** \
-                    -Dsonar.login=$SONAR_AUTH_TOKEN
+                    -Dsonar.login=squ_70db5226b04dffafe66cc5f281bf4525bd64ab87
                     '''
                 }
             }
