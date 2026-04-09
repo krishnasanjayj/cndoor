@@ -1,0 +1,146 @@
+.owner-dashboard {
+  @apply min-h-[calc(100vh-72px)] animate-fade-in py-8 px-6 lg:px-12;
+}
+
+.owner-dashboard-header {
+  @apply mb-8;
+}
+
+.owner-dashboard-title {
+  @apply font-heading font-bold text-textPrimary leading-[1.2] text-[1.8rem];
+}
+
+.owner-dashboard-subtitle {
+  @apply text-base text-textSecondary mt-2;
+}
+
+.owner-stats-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8;
+}
+
+.owner-stat-card {
+  @apply backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.4)] flex flex-col items-center justify-center text-center transition-all hover:-translate-y-1 hover:border-gold/30 hover:shadow-[0_8px_40px_rgba(212,175,55,0.2)];
+  background-color: rgba(18, 26, 46, 0.7);
+}
+
+.owner-stat-icon-wrapper-info {
+  @apply w-14 h-14 rounded-full flex items-center justify-center mb-4 bg-info/10 text-info;
+}
+.owner-stat-icon-wrapper-warning {
+  @apply w-14 h-14 rounded-full flex items-center justify-center mb-4 bg-warning/10 text-warning;
+}
+.owner-stat-icon-wrapper-success {
+  @apply w-14 h-14 rounded-full flex items-center justify-center mb-4 bg-success/10 text-success;
+}
+.owner-stat-icon-wrapper-gold {
+  @apply w-14 h-14 rounded-full flex items-center justify-center mb-4 bg-gold/10 text-gold;
+}
+
+.owner-stat-value {
+  @apply text-[2rem] font-heading font-bold mb-1;
+}
+
+.owner-stat-value-primary {
+  @apply text-textPrimary;
+}
+
+.owner-stat-value-warning {
+  @apply text-warning;
+}
+
+.owner-stat-value-success {
+  @apply text-success;
+}
+
+.owner-stat-label {
+  @apply text-[0.85rem] text-textSecondary font-medium tracking-wide;
+}
+
+.owner-table-card {
+  @apply backdrop-blur-md border border-white/10 rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] flex flex-col h-full overflow-hidden;
+  background-color: rgba(18, 26, 46, 0.7);
+}
+
+.owner-table-header {
+  @apply flex items-center justify-between px-6 py-5 border-b border-borderBase;
+}
+
+.owner-table-title {
+  @apply font-heading font-semibold text-textPrimary text-[1.1rem];
+}
+
+.owner-btn-outline {
+  @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-md text-[0.8rem] font-semibold transition-all cursor-pointer bg-white/5 text-gold border border-borderBase hover:bg-white/10 hover:border-borderAccent;
+}
+
+.owner-table-empty {
+  @apply flex items-center justify-center text-textMuted py-12;
+}
+
+.owner-table-wrapper {
+  @apply overflow-x-auto;
+}
+
+.owner-table {
+  @apply w-full border-collapse text-left;
+}
+
+.owner-table-head-row {
+  @apply border-b border-borderBase bg-white/5;
+}
+
+.owner-table-th {
+  @apply font-semibold text-textMuted text-[0.8rem] uppercase tracking-wider px-6 py-4;
+}
+
+.owner-table-th-right {
+  @apply text-right;
+}
+
+.owner-table-row {
+  @apply border-b border-white/5 hover:bg-white/5 transition-colors;
+}
+
+.owner-table-td {
+  @apply px-6 py-4 align-middle;
+}
+
+.owner-table-td-right {
+  @apply text-right;
+}
+
+.owner-client-name {
+  @apply font-semibold text-textPrimary;
+}
+
+.owner-client-email {
+  @apply text-textMuted text-[0.8rem];
+}
+
+.owner-product-type {
+  @apply text-textPrimary;
+}
+
+.owner-product-details {
+  @apply text-textMuted text-[0.8rem];
+}
+
+.owner-date-cell {
+  @apply px-6 py-4 align-middle text-textSecondary;
+}
+
+.owner-status-badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.75rem] font-bold tracking-wide uppercase whitespace-nowrap;
+}
+
+.owner-status-pending {
+  @apply bg-warning/15 text-warning border border-warning/25;
+}
+
+.owner-status-replied {
+  @apply bg-success/15 text-success border border-success/25;
+}
+
+.owner-action-btn {
+  @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-md text-[0.8rem] font-semibold transition-all cursor-pointer bg-transparent text-gold border-[1.5px] border-gold hover:bg-goldGlow hover:-translate-y-[2px] whitespace-nowrap;
+}

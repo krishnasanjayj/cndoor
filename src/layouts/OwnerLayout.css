@@ -1,0 +1,79 @@
+.owner-layout {
+  @apply flex min-h-screen bg-bgPrimary;
+}
+
+.owner-sidebar {
+  @apply w-[260px] max-lg:w-[220px] bg-bgSecondary border-r border-borderBase flex flex-col fixed top-0 left-0 h-screen z-[100] overflow-y-auto;
+}
+
+.owner-sidebar-header {
+  @apply flex items-center gap-3 px-5 pt-6 pb-5 border-b border-borderBase;
+}
+
+.owner-sidebar-logo {
+  @apply w-9 h-9 bg-gradient-to-br from-gold to-goldDark rounded-sm flex items-center justify-center text-[#0a0e1a] font-bold shrink-0;
+}
+
+.owner-sidebar-title {
+  @apply font-heading text-[0.95rem] font-bold text-textPrimary;
+}
+
+.owner-sidebar-subtitle {
+  @apply text-[0.7rem] text-gold font-medium tracking-[0.05em];
+}
+
+.owner-user-profile {
+  @apply flex items-center gap-3 p-5 border-b border-borderBase;
+}
+
+.owner-user-avatar {
+  @apply w-[42px] h-[42px] bg-gradient-to-br from-gold to-goldDark rounded-full flex items-center justify-center text-[0.85rem] font-bold text-[#0a0e1a] shrink-0;
+}
+
+.owner-user-name {
+  @apply text-[0.88rem] font-semibold text-textPrimary;
+}
+
+.owner-user-role {
+  @apply text-[0.75rem] text-gold mt-0.5 font-medium;
+}
+
+.owner-nav {
+  @apply flex-1 py-5 px-3 flex flex-col gap-1;
+}
+
+.owner-nav-header {
+  @apply text-[0.7rem] font-semibold tracking-[0.1em] uppercase text-textMuted px-2 mb-2;
+}
+
+.owner-nav-item {
+  @apply flex items-center gap-3 px-3.5 py-3 rounded-md text-[0.88rem] font-medium transition-colors;
+}
+
+.owner-nav-item-active {
+  @apply text-gold bg-goldGlow border-l-2 border-gold;
+}
+
+.owner-nav-item-inactive {
+  @apply text-textMuted hover:text-textPrimary hover:bg-white/5;
+}
+
+.owner-nav-icon {
+  @apply ml-auto transition-opacity;
+}
+
+.owner-nav-icon-active {
+  @apply opacity-100;
+}
+
+.owner-nav-icon-inactive {
+  @apply opacity-0;
+}
+
+.owner-logout-btn {
+  @apply flex items-center gap-2.5 py-4 px-5 bg-transparent border-t border-borderBase text-textMuted text-[0.88rem] cursor-pointer transition-colors font-body w-full hover:text-error hover:bg-[#ef4444]/10;
+}
+
+.owner-main {
+  @apply flex-1 ml-[260px] max-lg:ml-[220px] min-h-screen;
+}
