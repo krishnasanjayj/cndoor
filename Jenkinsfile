@@ -23,10 +23,10 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                sh '
+                sh '''
                 
                 docker push krishnasanjay/devops-project
-                '
+                '''
             }
         }
     }
