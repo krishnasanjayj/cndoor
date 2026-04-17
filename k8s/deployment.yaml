@@ -1,16 +1,10 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cndoor-app
-  namespace:default
+  namespace: default
 spec:
   replicas: 2
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
   selector:
     matchLabels:
       app: cndoor
@@ -21,12 +15,12 @@ spec:
     spec:
       containers:
         - name: cndoor
-          image: krishnasanjay/cndoor:latest
+          image: krishnasanjayj/cndoor:latest
           ports:
             - containerPort: 80
           volumeMounts:
-            - mountPath: "/data"
-              name: storage
+            - name: storage
+              mountPath: /data
       volumes:
         - name: storage
           persistentVolumeClaim:
