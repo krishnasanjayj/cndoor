@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cndoor-app
+  namespace:default
 spec:
   replicas: 2
   strategy:
