@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cndoor-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: cndoor
+  ports:
+    - port: 80
+      targetPort: 80

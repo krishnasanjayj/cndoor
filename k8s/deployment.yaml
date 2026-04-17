@@ -1,0 +1,32 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cndoor-app
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: cndoor
+  template:
+    metadata:
+      labels:
+        app: cndoor
+    spec:
+      containers:
+        - name: cndoor
+          image: krishnasanjay/cndoor:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: "/data"
+              name: storage
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: cndoor-pvc

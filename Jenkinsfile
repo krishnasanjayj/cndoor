@@ -1,32 +1,67 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = "krishnasanjay/cndoor:latest"
+    }
+
     stages {
 
-        stage('Run Ansible') {
+        stage('Checkout') {
             steps {
-                sh '''
-                docker run --rm \
-                -v $(pwd):/ansible \
-                -w /ansible \
-                alpine/ansible:latest \
-                ansible-playbook -i inventory.ini playbook.yml
-                '''
+                git 'https://github.com/krishnasanjayj/cndoor'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Install') {
             steps {
-                sh 'docker build -t krishnasanjay/devops-project .'
+                sh 'npm install'
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Build') {
             steps {
-                sh '''
-                
-                docker push krishnasanjay/devops-project
-                '''
+                sh 'npm run build'
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                sh 'npm run lint || true'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''
+                    sonar-scanner \
+                    -Dsonar.projectKey=cndoor \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.login=YOUR_TOKEN
+                    '''
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE .'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh 'docker push $DOCKER_IMAGE'
             }
         }
     }
